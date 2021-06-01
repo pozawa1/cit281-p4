@@ -22,6 +22,7 @@ Create the following files:
 
 # Part 3
 Create the data file, p4-data.js.
+
 ```
 // Question and answer data array
 const data = [
@@ -47,6 +48,7 @@ module.exports = {
 
 # Part 4
 The code module file, p4-module.js, will import the data file, p4-data.js.
+
 ```
 const { data } = require('./p4-data.js');
 ```
@@ -54,6 +56,7 @@ const { data } = require('./p4-data.js');
 # Part 5
 The code module file, p4-module.js, will contain the following six functions:
 1. getQuestions(): Returns an array of strings where each array element is a question.
+
 ```
 function getQuestions() {
     return data.map(obj => obj.question);
@@ -61,6 +64,7 @@ function getQuestions() {
 ```
 
 2. getAnswers(): Returns an array of strings where each array element is an answer.
+
 ```
 function getAnswers() {
     return data.map(obj => obj.answer);
@@ -68,6 +72,7 @@ function getAnswers() {
 ```
 
 3. getQuestionsAnswers(): Returns a copy of the original data array of objects.
+
 ```
 function getQuestionsAnswers() {
     return [...data];
@@ -75,6 +80,7 @@ function getQuestionsAnswers() {
 ```
 
 4. getQuestion(number = ""): Returns an object with the following properties: question (string), number (integer), and error message (string).
+
 ```
 function getQuestion(number) {
     let index = number - 1;
@@ -112,6 +118,7 @@ function getQuestion(number) {
 ```
 
 5. getAnswer(number = ""): Returns an object with the following properties: answer (string), number (integer), and error message (string).
+
 ```
 function getAnswer(number) {
   let index = number - 1;
@@ -149,6 +156,7 @@ function getAnswer(number) {
 ```
 
 6. getQuestionAnswer(number = ""): Returns an object with the following properties: question (string), answer (string), number (integer), and error message (string).
+
 ```
 function getQuestionAnswer(number) {
   let index = number - 1;
@@ -191,12 +199,14 @@ function getQuestionAnswer(number) {
 
 # Part 6
 Export the previous six functions.
+
 ```
 module.exports = {getQuestions, getAnswers, getQuestionsAnswers, getQuestion, getAnswer, getQuestionAnswer, addQuestionAnswer, updateQuestionAnswer, deleteQuestionAnswer};
 ```
 
 # Part 7
 The REST API server file, p4-server.js, will respond to requests from Postman to routes that will test the exported functions from p4-module.js.
+
 ```
 // Question Route
 fastify.get("/cit/question", (request, reply) => {
@@ -304,6 +314,7 @@ fastify.get("*", (request, reply) => {
 
 # Part 8
 Add support for POST.
+
 ```
 function addQuestionAnswer(info = {}) {
   if (Object.keys(info).length === 0 || "question" in info === false) {
@@ -349,6 +360,7 @@ fastify.post("/cit/question", (request, reply) => {
 
 # Part 9
 Add support for PUT.
+
 ```
 function updateQuestionAnswer(info = {}) {
   if (Object.keys(info).length === 0) {
@@ -398,6 +410,7 @@ fastify.put("/cit/question", (request, reply) => {
 
 # Part 10
 Add support for DELETE.
+
 ```
 function deleteQuestionAnswer(info) {
   let index = info - 1;
