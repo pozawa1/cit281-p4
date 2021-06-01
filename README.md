@@ -55,6 +55,7 @@ const { data } = require('./p4-data.js');
 
 # Part 5
 The code module file, p4-module.js, will contain the following six functions:
+
 (1) getQuestions(): Returns an array of strings where each array element is a question.
 
 ```
