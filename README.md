@@ -79,7 +79,7 @@ function getQuestionsAnswers() {
 };
 ```
 
-4. getQuestion(number = ""): Returns an object with the following properties: question (string), number (integer), and error message (string).
+4. getQuestion(number): Returns an object with the following properties: question (string), number (integer), and error message (string).
 
 ```
 function getQuestion(number) {
@@ -117,7 +117,7 @@ function getQuestion(number) {
 };
 ```
 
-5. getAnswer(number = ""): Returns an object with the following properties: answer (string), number (integer), and error message (string).
+5. getAnswer(number): Returns an object with the following properties: answer (string), number (integer), and error message (string).
 
 ```
 function getAnswer(number) {
@@ -155,7 +155,7 @@ function getAnswer(number) {
 };
 ```
 
-6. getQuestionAnswer(number = ""): Returns an object with the following properties: question (string), answer (string), number (integer), and error message (string).
+6. getQuestionAnswer(number): Returns an object with the following properties: question (string), answer (string), number (integer), and error message (string).
 
 ```
 function getQuestionAnswer(number) {
