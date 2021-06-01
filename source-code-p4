@@ -1,0 +1,530 @@
+// p4-data.js
+
+// Question and answer data array
+const data = [
+    {
+      question: "Q1",
+      answer: "A1",
+    },
+    {
+      question: "Q2",
+      answer: "A2",
+    },
+    {
+      question: "Q3",
+      answer: "A3",
+    },
+  ];
+  
+  // Export statement must be below data declaration - no hoisting with const
+  module.exports = {
+    data,
+  };
+  
+  // p4-module.js
+  
+  const { data } = require('./p4-data.js');
+
+// PART 7
+// Returns an array of strings where each array element is a question
+function getQuestions() {
+    return data.map(obj => obj.question);
+};
+
+// Returns an array of strings where each array element is an answer
+function getAnswers() {
+    return data.map(obj => obj.answer);
+};
+
+// Returns a copy of the original data array of objects
+function getQuestionsAnswers() {
+    return [...data];
+};
+
+// Returns an object with the following properties: question, number, error
+function getQuestion(number) {
+    let index = number - 1;
+    let newData = data[index];
+    
+    if (number <= 0) {
+      return {
+          question: '',
+          number: '',
+          error: 'Question number must be >= 1'
+        }
+    }
+    if (number >= 4) {
+      return {
+          question: '',
+          number: '',
+          error: 'Question number must be less than the number of questions (3)'
+      }
+    }
+    if (number >= 1 && number <= 3) {
+      return {
+          question: newData.question,
+          number: number,
+          error: ''
+        }
+    }
+    else {
+      return {
+          question: '',
+          number: '',
+          error: 'Question number must be an integer'
+        }
+    }
+};
+
+// Returns an object with the following properties: answer, number, error
+function getAnswer(number) {
+  let index = number - 1;
+  let newData = data[index];
+
+  if (number <= 0) {
+    return {
+        answer: '',
+        number: '',
+        error: 'Answer number must be >= 1'
+      }
+  }
+  if (number >= 4) {
+    return {
+        answer: '',
+        number: '',
+        error: 'Answer number must be less than the number of questions (3)'
+      }
+  }
+  if (number >= 1 && number <= 3) {
+    return {
+        answer: newData.answer,
+        number: number,
+        error: ''
+      }
+  }
+  else {
+    return {
+        answer: '',
+        number: '',
+        error: 'Answer number must be an integer'
+      }
+  }
+};
+
+// Returns an object with the following properties: question, answer, number, error
+function getQuestionAnswer(number) {
+  let index = number - 1;
+  let newData = data[index];
+
+  if (number <= 0) {
+    return {
+        question: '',
+        answer: '',
+        number: '',
+        error: 'Question number must be >= 1'
+      }
+  }
+  if (number >= 4) {
+    return {
+        question: '',
+        answer: '',
+        number: '',
+        error: 'Question number must be less than the number of questions (3)'
+      }
+  }
+  if (number >= 1 && number <= 3) {
+    return {
+        question: newData.question,
+        answer: newData.answer,
+        number: number,
+        error: ''
+      }
+  }
+  else {
+    return {
+        question: '',
+        answer: '',
+        number: '',
+        error: 'Question number must be an integer'
+      }
+  }
+};
+
+// PART 8: POST EXTRA CREDIT
+function addQuestionAnswer(info = {}) {
+  if (Object.keys(info).length === 0 || "question" in info === false) {
+    return {
+      error: "Object question property required",
+      message: "",
+      number: -1
+    }
+  }
+  if ("answer" in info === false) {
+    return {
+      error: "Object answer property required",
+      message: "",
+      number: -1
+    }
+  }
+  if ("question" in info === true && "answer" in info === true) {
+    let addQA = data.push(info);
+    return {
+      error: "",
+      message: "Question added",
+      number: addQA
+    }
+}};
+
+// PART 9: PUT EXTRA CREDIT
+function updateQuestionAnswer(info = {}) {
+  if (Object.keys(info).length === 0) {
+    return {
+      error: "Object question property or answer property required",
+      message: "",
+      number: ""
+    }
+  }
+  if ("number" in info === false) {
+    return {
+      error: "Object number property must be a valid integer",
+      message: "",
+      number: ""
+    }
+  }
+  if ("number" in info === true ) {
+    let index = info.number - 1;
+    data[index].question = info.question;
+    data[index].answer = info.answer;
+    
+    return {
+      error: "",
+      message: "Question" + " " + info.number + " " + "updated",
+      number: info.number
+    }
+}};
+
+// PART 10: DELETE EXTRA CREDIT
+function deleteQuestionAnswer(info) {
+  let index = info - 1;
+  
+  if (info <= 0) {
+    return {
+      error: "Question/answer number must be >= 1",
+      message: "",
+      number: ""
+    }
+  }
+  if (info >= 4) {
+    return {
+      error: "Question/answer number must be less than the number of questions",
+      message: "",
+      number: ""
+    }
+  }
+  if (info >= 1 && info <= 3) {
+    delete data[index];
+
+    return {
+      error: "",
+      message: "Question" + " " + info + " " + "deleted",
+      number: info
+    }
+  }
+  else {
+    return {
+      error: "Question/answer number must be an integer",
+      message: "",
+      number: ""
+    }
+}};
+
+module.exports = {getQuestions, getAnswers, getQuestionsAnswers, getQuestion, getAnswer, getQuestionAnswer, addQuestionAnswer, updateQuestionAnswer, deleteQuestionAnswer};
+
+/*****************************
+  Module function testing
+******************************/
+
+function testing(category, ...args) {
+    console.log(`\n** Testing ${category} **`);
+    console.log("-------------------------------");
+    for (const o of args) {
+      console.log(`-> ${category}${o.d}:`);
+      console.log(o.f);
+    }
+  }
+  
+  // Set a constant to true to test the appropriate function
+  const testGetQs = false;
+  const testGetAs = false;
+  const testGetQsAs = false;
+  const testGetQ = false;
+  const testGetA = false;
+  const testGetQA = false;
+  const testAdd = false;      // Extra credit
+  const testUpdate = false;   // Extra credit
+  const testDelete = false;   // Extra credit
+
+  // getQuestions()
+if (testGetQs) {
+    testing("getQuestions", { d: "()", f: getQuestions() });
+  }
+  
+  // getAnswers()
+  if (testGetAs) {
+    testing("getAnswers", { d: "()", f: getAnswers() });
+  }
+  
+  // getQuestionsAnswers()
+  if (testGetQsAs) {
+    testing("getQuestionsAnswers", { d: "()", f: getQuestionsAnswers() });
+  }
+  
+  // getQuestion()
+  if (testGetQ) {
+    testing(
+      "getQuestion",
+      { d: "()", f: getQuestion() },      // Extra credit: +1
+      { d: "(0)", f: getQuestion(0) },    // Extra credit: +1
+      { d: "(1)", f: getQuestion(1) },
+      { d: "(4)", f: getQuestion(4) }     // Extra credit: +1
+    );
+  }
+  
+  // getAnswer()
+  if (testGetA) {
+    testing(
+      "getAnswer",
+      { d: "()", f: getAnswer() },        // Extra credit: +1
+      { d: "(0)", f: getAnswer(0) },      // Extra credit: +1
+      { d: "(1)", f: getAnswer(1) },
+      { d: "(4)", f: getAnswer(4) }       // Extra credit: +1
+    );
+  }
+  
+  // getQuestionAnswer()
+  if (testGetQA) {
+    testing(
+      "getQuestionAnswer",
+      { d: "()", f: getQuestionAnswer() },    // Extra credit: +1
+      { d: "(0)", f: getQuestionAnswer(0) },  // Extra credit: +1
+      { d: "(1)", f: getQuestionAnswer(1) },
+      { d: "(4)", f: getQuestionAnswer(4) }   // Extra credit: +1
+    );
+  }
+
+  // addQuestionAnswer()
+if (testAdd) {
+  testing(
+    "addQuestionAnswer",
+    { d: "()", f: addQuestionAnswer() },
+    { d: "({})", f: addQuestionAnswer({}) },
+    { d: '(question: "Q4")', f: addQuestionAnswer({ question: "Q4" }) },
+    { d: '(answer: "A4")', f: addQuestionAnswer({ answer: "A4" }) },
+    {
+      d: '(question: "Q4", answer: "A4")',
+      f: addQuestionAnswer({ question: "Q4", answer: "A4" }),
+    }
+  );
+}
+
+// updateQuestionAnswer()
+if (testUpdate) {
+  testing(
+    "updateQuestionAnswer",
+    { d: "()", f: updateQuestionAnswer() },
+    { d: "({})", f: updateQuestionAnswer({}) },
+    { d: '(question: "Q1U")', f: updateQuestionAnswer({ question: "Q1U" }) },
+    { d: '(answer: "A1U")', f: updateQuestionAnswer({ answer: "A1U" }) },
+    {
+      d: '(question: "Q1U", answer: "A1U")',
+      f: updateQuestionAnswer({ question: "Q1U", answer: "A1U" }),
+    },
+    {
+      d: '(number: 1, question: "Q1U", answer: "A1U")',
+      f: updateQuestionAnswer({ number: 1, question: "Q1U", answer: "A1U" }),
+    }
+  );
+  console.log(data);
+}
+
+// deleteQuestionAnswer()
+if (testDelete) {
+  testing(
+    "deleteQuestionAnswer",
+    { d: "()", f: deleteQuestionAnswer() },
+    { d: "(0)", f: deleteQuestionAnswer(0) },
+    { d: "(1)", f: deleteQuestionAnswer(1) },
+    { d: "(0)", f: deleteQuestionAnswer(4) }
+  );
+  console.log(data);
+}
+
+// p4-server.js
+
+const fastify = require("fastify")();
+const {getQuestions, getAnswers, getQuestionsAnswers, getQuestion, getAnswer, getQuestionAnswer, addQuestionAnswer, updateQuestionAnswer, deleteQuestionAnswer} = require('./p4-module.js');
+
+// PART 7
+// Question Route
+fastify.get("/cit/question", (request, reply) => {
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": "",
+            "statusCode": 200,
+            "questions": getQuestions()
+        })
+});
+
+// Answer Route
+fastify.get("/cit/answer", (request, reply) => {
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": "",
+            "statusCode": 200,
+            "answers": getAnswers()
+        })
+});
+
+// Question and Answer Route
+fastify.get("/cit/questionanswer", (request, reply) => {
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": "",
+            "statusCode": 200,
+            "questions_answers": getQuestionsAnswers()
+        })
+});
+
+// Specific Question Route
+fastify.get("/cit/question/:number", (request, reply) => {
+    let number = request.params.number;
+    let newQ = getQuestion(number);
+
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": newQ.error,
+            "statusCode": 200,
+            "question": newQ.question,
+            "number": newQ.number
+        })
+});
+
+// Specific Answer Route
+fastify.get("/cit/answer/:number", (request, reply) => {
+    let number = request.params.number;
+    let newA = getAnswer(number);
+
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": newA.error,
+            "statusCode": 200,
+            "question": newA.answer,
+            "number": newA.number
+        })
+});
+
+// Specific Question and Answer Route
+fastify.get("/cit/questionanswer/:number", (request, reply) => {
+    let number = request.params.number;
+    let newQA = getQuestionAnswer(number);
+
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+        {
+            "error": newQA.error,
+            "statusCode": 200,
+            "question": newQA.question,
+            "answer": newQA.answer,
+            "number": newQA.number
+        })
+});
+
+// Unmatched Route
+fastify.get("*", (request, reply) => {
+    reply
+      .code(200)
+      .header("Content-Type", "application/json; charset=utf-8")
+      .send(
+        {
+            "error": "Route not found",
+            "statusCode": 404
+        });
+  });
+
+// PART 8: POST EXTRA CREDIT
+fastify.post("/cit/question", (request, reply) => {
+    let response = request.body;
+    let addedQA = addQuestionAnswer(response);
+    
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+    {
+        "error": addedQA.error,
+        "statusCode": 201,
+        "number": addedQA.number
+    });
+});
+
+// PART 9: PUT EXTRA CREDIT
+fastify.put("/cit/question", (request, reply) => {
+    const { number, question, answer } = request.body;
+    let response = { number, question, answer };
+    let updatedQA = updateQuestionAnswer(response);
+    
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+    {
+        "error": updatedQA.error,
+        "statusCode": 200,
+        "number": updatedQA.number
+    });
+});
+
+// PART 10: DELETE EXTRA CREDIT
+fastify.delete("/cit/question/:number", (request, reply) => {
+    let number = request.params.number;
+    let response = number;
+    let deletedQA = deleteQuestionAnswer(response);
+    
+    reply
+    .code(200)
+    .header("Content-Type", "application/json; charset=utf-8")
+    .send(
+    {
+        "error": deletedQA.error,
+        "statusCode": 200,
+        "number": deletedQA.number
+    });
+});
+
+// Start server and listen to requests using Fastify
+const listenIP = "localhost";
+const listenPort = 8080;
+fastify.listen(listenPort, listenIP, (err, address) => {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+  console.log(`Server listening on ${address}`);
+});
