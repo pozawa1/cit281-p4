@@ -55,7 +55,7 @@ const { data } = require('./p4-data.js');
 
 # Part 5
 The code module file, p4-module.js, will contain the following six functions:
-1. getQuestions(): Returns an array of strings where each array element is a question.
+(1) getQuestions(): Returns an array of strings where each array element is a question.
 
 ```
 function getQuestions() {
@@ -63,7 +63,7 @@ function getQuestions() {
 };
 ```
 
-2. getAnswers(): Returns an array of strings where each array element is an answer.
+(2) getAnswers(): Returns an array of strings where each array element is an answer.
 
 ```
 function getAnswers() {
@@ -71,7 +71,7 @@ function getAnswers() {
 };
 ```
 
-3. getQuestionsAnswers(): Returns a copy of the original data array of objects.
+(3) getQuestionsAnswers(): Returns a copy of the original data array of objects.
 
 ```
 function getQuestionsAnswers() {
@@ -79,7 +79,7 @@ function getQuestionsAnswers() {
 };
 ```
 
-4. getQuestion(number): Returns an object with the following properties: question (string), number (integer), and error message (string).
+(4) getQuestion(number): Returns an object with the following properties: question (string), number (integer), and error message (string).
 
 ```
 function getQuestion(number) {
@@ -117,7 +117,7 @@ function getQuestion(number) {
 };
 ```
 
-5. getAnswer(number): Returns an object with the following properties: answer (string), number (integer), and error message (string).
+(5) getAnswer(number): Returns an object with the following properties: answer (string), number (integer), and error message (string).
 
 ```
 function getAnswer(number) {
@@ -155,7 +155,7 @@ function getAnswer(number) {
 };
 ```
 
-6. getQuestionAnswer(number): Returns an object with the following properties: question (string), answer (string), number (integer), and error message (string).
+(6) getQuestionAnswer(number): Returns an object with the following properties: question (string), answer (string), number (integer), and error message (string).
 
 ```
 function getQuestionAnswer(number) {
